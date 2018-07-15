@@ -13,7 +13,7 @@ func main(){
 	var c1 float64
 	var d1 bool
 
-
+	fmt.Println("Shorthand variable...")
 	fmt.Printf("%v : %T\n",a,a)
 	fmt.Printf("%v : %T\n",b,b)
 	fmt.Printf("%v : %T\n",c,c)
