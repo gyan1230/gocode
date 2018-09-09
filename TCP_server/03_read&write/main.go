@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 )
 
 func main() {
@@ -24,11 +25,13 @@ func main() {
 }
 
 func handle(conn net.Conn) {
+	conn.SetDeadline(time.Now().Add(10 * time.Second))
 	scanner := bufio.NewScanner(conn)
 	for scanner.Scan() {
 		line := scanner.Text()
 		fmt.Println(line)
+		fmt.Fprintf(conn, "You say %s \n", line)
 	}
 	defer conn.Close()
-	fmt.Println("Code won't reach here...")
+	fmt.Println("****CODE Reach Here******")
 }
