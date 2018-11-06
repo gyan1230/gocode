@@ -35,16 +35,26 @@ func main() {
 
 	fmt.Println("Succesfully db connected...")
 
-	insert, err := db.Query("INSERT INTO `test`.`details` (`name`) VALUES ('sdxxx')")
+	// insert, err := db.Query("INSERT INTO `test`.`details` (`id`) VALUES ('5')")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	// insert, err = db.Query("INSERT INTO `test`.`details` (`name`) VALUES ('ram')")
+
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+
+	// defer insert.Close()
+	// fmt.Println("Succesfully db Inserted...")
+
+	result, err := db.Query("SELECT id FROM details")
 
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalln(err)
 	}
 
-	defer insert.Close()
-	fmt.Println("Succesfully db Inserted...")
-
-	result, err := db.Query("SELECT name FROM details")
+	result2, err := db.Query("SELECT name FROM details")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -52,9 +62,17 @@ func main() {
 	for result.Next() {
 		var detail Details
 
-		err = result.Scan(&detail.Name)
+		err = result.Scan(&detail.ID)
 		if err != nil {
 			fmt.Println(err)
+		}
+		fmt.Println(detail.ID)
+	}
+	for result2.Next() {
+		var detail Details
+		err = result2.Scan(&detail.Name)
+		if err != nil {
+			log.Fatalln(err)
 		}
 		fmt.Println(detail.Name)
 	}
