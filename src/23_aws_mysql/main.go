@@ -35,6 +35,7 @@ func main() {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/text")
 	io.WriteString(w, "At index")
 
 }
